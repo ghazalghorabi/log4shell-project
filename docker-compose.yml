@@ -1,0 +1,34 @@
+# 
+
+services:
+
+  # The vulnerable application
+  victim:
+    build: 
+      context: .
+      dockerfile: Dockerfile.victim
+    container_name: victim-machine
+    ports:
+      - "8080:8080"
+    cap_add:
+      - NET_ADMIN
+    # environment:
+    #   - LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+    networks:
+      - isolated-network
+
+  # The attacker
+  attacker:
+    build: 
+      context: .
+      dockerfile: Dockerfile.attacker
+    container_name: attacker-machine
+    command: sleep infinity 
+    networks:
+      - isolated-network
+
+# The isolated network
+networks:
+  isolated-network:
+    driver: bridge
+    internal: true

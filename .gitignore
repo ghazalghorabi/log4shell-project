@@ -1,4 +1,5 @@
 *.class
 build/
 .idea
-.gradle
+.gradle.DS_Store
+JNDIExploit.v1.2.zip
